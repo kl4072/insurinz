@@ -1,0 +1,57 @@
+<mat-card class="quote-card">
+  <mat-card-content>
+    <h2>Your Quote is Ready!</h2>
+
+    <div class="quote-id">
+      <p><strong>Quote ID:</strong> {{ quote.quoteId }}</p>
+      <p><strong>Expires:</strong> {{ quote.expirationDate | date }}</p>
+    </div>
+
+    <mat-card class="premium-card">
+      <mat-card-title>Premium Options</mat-card-title>
+      <mat-card-content>
+        <div class="premium-option highlighted">
+          <span class="label">Monthly Premium</span>
+          <span class="amount">${{ quote.premium.monthlyPremium | number:'1.2-2' }}</span>
+        </div>
+        <div class="premium-option">
+          <span class="label">6-Month Premium</span>
+          <span class="amount">${{ quote.premium.sixMonthPremium | number:'1.2-2' }}</span>
+        </div>
+        <div class="premium-option">
+          <span class="label">Annual Premium</span>
+          <span class="amount">${{ quote.premium.annualPremium | number:'1.2-2' }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="breakdown-card">
+      <mat-card-title>Coverage Breakdown</mat-card-title>
+      <mat-card-content>
+        <div class="coverage-item" *ngFor="let item of quote.coverageBreakdown">
+          <span>{{ item.coverageType }}</span>
+          <span>${{ item.premium | number:'1.2-2' }}</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="discounts-card" *ngIf="quote.discounts.length > 0">
+      <mat-card-title>Discounts Applied</mat-card-title>
+      <mat-card-content>
+        <div class="discount-item" *ngFor="let discount of quote.discounts">
+          <span>{{ discount.description }}</span>
+          <span class="discount-amount">-${{ discount.amount | number:'1.2-2' }}</span>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="total-discount">
+          <strong>Total Savings</strong>
+          <strong>${{ quote.premium.totalDiscount | number:'1.2-2' }}</strong>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="actions">
+      <button mat-raised-button color="primary" (click)="startNewQuote()">Start New Quote</button>
+    </div>
+  </mat-card-content>
+</mat-card>

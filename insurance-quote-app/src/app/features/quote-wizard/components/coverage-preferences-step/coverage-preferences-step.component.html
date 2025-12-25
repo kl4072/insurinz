@@ -1,0 +1,182 @@
+<form [formGroup]="coverageForm">
+  <mat-card>
+    <mat-card-content>
+      <h2>Coverage Preferences</h2>
+      <p class="subtitle">Select the coverage types and limits that best fit your needs</p>
+
+      <mat-divider></mat-divider>
+
+      <h3>
+        Liability Coverage
+        <mat-icon matTooltip="Liability coverage is required by law and covers damages to others" class="info-icon">info</mat-icon>
+      </h3>
+      <p class="section-description">Required coverage that pays for injuries and property damage you cause to others</p>
+
+      <div formGroupName="liability" class="coverage-section">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Bodily Injury Per Person</mat-label>
+            <mat-select formControlName="bodilyInjuryPerPerson">
+              <mat-option [value]="25000">$25,000</mat-option>
+              <mat-option [value]="50000">$50,000</mat-option>
+              <mat-option [value]="100000">$100,000 (Recommended)</mat-option>
+              <mat-option [value]="250000">$250,000</mat-option>
+              <mat-option [value]="500000">$500,000</mat-option>
+            </mat-select>
+            <mat-hint>Maximum paid per person for bodily injury</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Bodily Injury Per Accident</mat-label>
+            <mat-select formControlName="bodilyInjuryPerAccident">
+              <mat-option [value]="50000">$50,000</mat-option>
+              <mat-option [value]="100000">$100,000</mat-option>
+              <mat-option [value]="300000">$300,000 (Recommended)</mat-option>
+              <mat-option [value]="500000">$500,000</mat-option>
+              <mat-option [value]="1000000">$1,000,000</mat-option>
+            </mat-select>
+            <mat-hint>Maximum paid per accident for all injuries</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Property Damage</mat-label>
+            <mat-select formControlName="propertyDamage">
+              <mat-option [value]="25000">$25,000</mat-option>
+              <mat-option [value]="50000">$50,000</mat-option>
+              <mat-option [value]="100000">$100,000 (Recommended)</mat-option>
+              <mat-option [value]="250000">$250,000</mat-option>
+            </mat-select>
+            <mat-hint>Coverage for damage to others' property</mat-hint>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <h3>
+        Physical Damage Coverage
+        <mat-icon matTooltip="Covers damage to your own vehicle" class="info-icon">info</mat-icon>
+      </h3>
+      <p class="section-description">Optional coverage for damage to your vehicle</p>
+
+      <div formGroupName="collision" class="coverage-option">
+        <div class="checkbox-row">
+          <mat-checkbox formControlName="enabled">
+            <strong>Collision Coverage</strong>
+          </mat-checkbox>
+          <mat-icon matTooltip="Pays for damage to your car from a collision with another vehicle or object" class="info-icon">info</mat-icon>
+        </div>
+        <p class="coverage-description">Covers damage to your vehicle from collisions, regardless of fault</p>
+
+        <mat-form-field appearance="outline" *ngIf="coverageForm.get('collision.enabled')?.value" class="deductible-field">
+          <mat-label>Deductible</mat-label>
+          <mat-select formControlName="deductible">
+            <mat-option [value]="250">$250 (Higher premium)</mat-option>
+            <mat-option [value]="500">$500</mat-option>
+            <mat-option [value]="1000">$1,000 (Recommended)</mat-option>
+            <mat-option [value]="2000">$2,000 (Lower premium)</mat-option>
+            <mat-option [value]="5000">$5,000</mat-option>
+          </mat-select>
+          <mat-hint>Amount you pay before insurance kicks in</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <div formGroupName="comprehensive" class="coverage-option">
+        <div class="checkbox-row">
+          <mat-checkbox formControlName="enabled">
+            <strong>Comprehensive Coverage</strong>
+          </mat-checkbox>
+          <mat-icon matTooltip="Pays for damage to your car from events like theft, vandalism, weather, and animal collisions" class="info-icon">info</mat-icon>
+        </div>
+        <p class="coverage-description">Covers damage from theft, vandalism, fire, weather, and animal collisions</p>
+
+        <mat-form-field appearance="outline" *ngIf="coverageForm.get('comprehensive.enabled')?.value" class="deductible-field">
+          <mat-label>Deductible</mat-label>
+          <mat-select formControlName="deductible">
+            <mat-option [value]="250">$250 (Higher premium)</mat-option>
+            <mat-option [value]="500">$500</mat-option>
+            <mat-option [value]="1000">$1,000 (Recommended)</mat-option>
+            <mat-option [value]="2000">$2,000 (Lower premium)</mat-option>
+            <mat-option [value]="5000">$5,000</mat-option>
+          </mat-select>
+          <mat-hint>Amount you pay before insurance kicks in</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <h3>
+        Additional Protection
+        <mat-icon matTooltip="Extra coverage options for enhanced protection" class="info-icon">info</mat-icon>
+      </h3>
+      <p class="section-description">Optional coverages for additional protection and peace of mind</p>
+
+      <div class="additional-coverage">
+        <div class="coverage-option">
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="personalInjuryProtection">
+              <strong>Personal Injury Protection (PIP)</strong>
+            </mat-checkbox>
+            <mat-icon matTooltip="Covers medical expenses for you and your passengers, regardless of fault" class="info-icon">info</mat-icon>
+          </div>
+          <p class="coverage-description">Covers medical expenses for you and passengers after an accident</p>
+        </div>
+
+        <div class="coverage-option">
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="uninsuredMotoristCoverage">
+              <strong>Uninsured/Underinsured Motorist Coverage</strong>
+            </mat-checkbox>
+            <mat-icon matTooltip="Protects you if hit by a driver with no insurance or insufficient coverage" class="info-icon">info</mat-icon>
+          </div>
+          <p class="coverage-description">Protects you if you're hit by an uninsured or underinsured driver</p>
+        </div>
+
+        <div formGroupName="medicalPayments" class="coverage-option">
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="enabled">
+              <strong>Medical Payments Coverage</strong>
+            </mat-checkbox>
+            <mat-icon matTooltip="Pays medical expenses for you and passengers after an accident" class="info-icon">info</mat-icon>
+          </div>
+          <p class="coverage-description">Covers medical bills for you and passengers</p>
+
+          <mat-form-field appearance="outline" *ngIf="coverageForm.get('medicalPayments.enabled')?.value" class="deductible-field">
+            <mat-label>Coverage Limit</mat-label>
+            <mat-select formControlName="limit">
+              <mat-option [value]="1000">$1,000</mat-option>
+              <mat-option [value]="5000">$5,000</mat-option>
+              <mat-option [value]="10000">$10,000</mat-option>
+              <mat-option [value]="25000">$25,000</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="coverage-option">
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="rentalReimbursement">
+              <strong>Rental Reimbursement</strong>
+            </mat-checkbox>
+            <mat-icon matTooltip="Pays for a rental car while your vehicle is being repaired" class="info-icon">info</mat-icon>
+          </div>
+          <p class="coverage-description">Covers rental car costs while your vehicle is being repaired</p>
+        </div>
+
+        <div class="coverage-option">
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="roadsideAssistance">
+              <strong>Roadside Assistance</strong>
+            </mat-checkbox>
+            <mat-icon matTooltip="24/7 help for breakdowns, flat tires, lockouts, and towing" class="info-icon">info</mat-icon>
+          </div>
+          <p class="coverage-description">24/7 towing, flat tire changes, jump starts, and lockout service</p>
+        </div>
+      </div>
+
+      <div class="button-row">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext color="primary" [disabled]="!coverageForm.valid">Next</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

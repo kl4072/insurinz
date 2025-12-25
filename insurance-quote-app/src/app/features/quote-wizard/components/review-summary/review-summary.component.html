@@ -1,0 +1,287 @@
+<div class="review-container">
+  <mat-card>
+    <mat-card-content>
+      <h2>Review Your Information</h2>
+      <p class="subtitle">Please review all information before submitting your quote request</p>
+
+      <mat-divider></mat-divider>
+
+      <!-- Driver Information Section -->
+      <div class="summary-section">
+        <div class="section-header">
+          <h3>
+            <mat-icon>person</mat-icon>
+            Driver Information
+          </h3>
+          <button mat-button color="primary" (click)="onEditStep(0)">
+            <mat-icon>edit</mat-icon>
+            Edit
+          </button>
+        </div>
+
+        <mat-card class="info-card" *ngIf="driver">
+          <mat-card-content>
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="label">Name:</span>
+                <span class="value">{{ driver.firstName }} {{ driver.lastName }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Date of Birth:</span>
+                <span class="value">{{ formatDate(driver.dateOfBirth) }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Gender:</span>
+                <span class="value">{{ driver.gender | titlecase }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Marital Status:</span>
+                <span class="value">{{ driver.maritalStatus | titlecase }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">License Number:</span>
+                <span class="value">{{ driver.licenseNumber }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">License State:</span>
+                <span class="value">{{ driver.licenseState }}</span>
+              </div>
+            </div>
+
+            <div *ngIf="driver.drivingHistory" class="driving-history">
+              <h4>Driving History</h4>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="label">Years Licensed:</span>
+                  <span class="value">{{ driver.drivingHistory.yearsLicensed }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Accidents (3 years):</span>
+                  <span class="value">{{ driver.drivingHistory.accidents?.length || 0 }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Violations (3 years):</span>
+                  <span class="value">{{ driver.drivingHistory.violations?.length || 0 }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">DUI:</span>
+                  <span class="value">{{ driver.drivingHistory.dui ? 'Yes' : 'No' }}</span>
+                </div>
+              </div>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Vehicle Information Section -->
+      <div class="summary-section">
+        <div class="section-header">
+          <h3>
+            <mat-icon>directions_car</mat-icon>
+            Vehicle Information
+          </h3>
+          <button mat-button color="primary" (click)="onEditStep(1)">
+            <mat-icon>edit</mat-icon>
+            Edit
+          </button>
+        </div>
+
+        <mat-card class="info-card" *ngIf="vehicle">
+          <mat-card-content>
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="label">Vehicle:</span>
+                <span class="value">{{ vehicle.year }} {{ vehicle.make }} {{ vehicle.model }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">VIN:</span>
+                <span class="value">{{ vehicle.vin }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Body Type:</span>
+                <span class="value">{{ vehicle.bodyType | titlecase }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Primary Use:</span>
+                <span class="value">{{ vehicle.primaryUse | titlecase }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Annual Mileage:</span>
+                <span class="value">{{ vehicle.annualMileage?.toLocaleString() }} miles</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Ownership:</span>
+                <span class="value">{{ vehicle.ownership | titlecase }}</span>
+              </div>
+            </div>
+
+            <div *ngIf="vehicle.garagingAddress" class="garaging-address">
+              <h4>Garaging Address</h4>
+              <p>{{ vehicle.garagingAddress.street }}, {{ vehicle.garagingAddress.city }}, {{ vehicle.garagingAddress.state }} {{ vehicle.garagingAddress.zipCode }}</p>
+            </div>
+
+            <div *ngIf="vehicle.safetyFeatures && vehicle.safetyFeatures.length > 0" class="safety-features">
+              <h4>Safety Features</h4>
+              <mat-chip-set>
+                <mat-chip *ngFor="let feature of vehicle.safetyFeatures">{{ feature }}</mat-chip>
+              </mat-chip-set>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Coverage Preferences Section -->
+      <div class="summary-section">
+        <div class="section-header">
+          <h3>
+            <mat-icon>shield</mat-icon>
+            Coverage Preferences
+          </h3>
+          <button mat-button color="primary" (click)="onEditStep(2)">
+            <mat-icon>edit</mat-icon>
+            Edit
+          </button>
+        </div>
+
+        <mat-card class="info-card" *ngIf="coverage">
+          <mat-card-content>
+            <div class="coverage-section">
+              <h4>Liability Coverage (Required)</h4>
+              <div class="info-grid">
+                <div class="info-item">
+                  <span class="label">Bodily Injury (per person):</span>
+                  <span class="value">{{ getCoverageLabel(coverage.liability?.bodilyInjuryPerPerson) }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Bodily Injury (per accident):</span>
+                  <span class="value">{{ getCoverageLabel(coverage.liability?.bodilyInjuryPerAccident) }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Property Damage:</span>
+                  <span class="value">{{ getCoverageLabel(coverage.liability?.propertyDamage) }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="coverage-section" *ngIf="coverage.collision?.enabled">
+              <h4>Collision Coverage</h4>
+              <div class="info-item">
+                <span class="label">Deductible:</span>
+                <span class="value">{{ getDeductibleLabel(coverage.collision?.deductible) }}</span>
+              </div>
+            </div>
+
+            <div class="coverage-section" *ngIf="coverage.comprehensive?.enabled">
+              <h4>Comprehensive Coverage</h4>
+              <div class="info-item">
+                <span class="label">Deductible:</span>
+                <span class="value">{{ getDeductibleLabel(coverage.comprehensive?.deductible) }}</span>
+              </div>
+            </div>
+
+            <div class="coverage-section">
+              <h4>Additional Coverage</h4>
+              <mat-chip-set>
+                <mat-chip *ngIf="coverage.personalInjuryProtection">Personal Injury Protection</mat-chip>
+                <mat-chip *ngIf="coverage.uninsuredMotoristCoverage">Uninsured Motorist</mat-chip>
+                <mat-chip *ngIf="coverage.medicalPayments?.enabled">Medical Payments ({{ getCoverageLabel(coverage.medicalPayments?.limit) }})</mat-chip>
+                <mat-chip *ngIf="coverage.rentalReimbursement">Rental Reimbursement</mat-chip>
+                <mat-chip *ngIf="coverage.roadsideAssistance">Roadside Assistance</mat-chip>
+              </mat-chip-set>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Insurance History Section -->
+      <div class="summary-section">
+        <div class="section-header">
+          <h3>
+            <mat-icon>history</mat-icon>
+            Insurance History
+          </h3>
+          <button mat-button color="primary" (click)="onEditStep(3)">
+            <mat-icon>edit</mat-icon>
+            Edit
+          </button>
+        </div>
+
+        <mat-card class="info-card" *ngIf="history">
+          <mat-card-content>
+            <div class="info-grid">
+              <div class="info-item">
+                <span class="label">Currently Insured:</span>
+                <span class="value">{{ history.currentlyInsured ? 'Yes' : 'No' }}</span>
+              </div>
+              <div class="info-item" *ngIf="history.currentlyInsured">
+                <span class="label">Current Insurer:</span>
+                <span class="value">{{ history.currentInsurer }}</span>
+              </div>
+              <div class="info-item" *ngIf="history.currentlyInsured">
+                <span class="label">Policy Expiration:</span>
+                <span class="value">{{ formatDate(history.policyExpirationDate) }}</span>
+              </div>
+              <div class="info-item">
+                <span class="label">Continuous Coverage:</span>
+                <span class="value">{{ history.continuousCoverage ? 'Yes' : 'No' }}</span>
+              </div>
+            </div>
+
+            <div *ngIf="history.claims && history.claims.length > 0" class="claims-summary">
+              <h4>Claims History ({{ history.claims.length }})</h4>
+              <mat-list>
+                <mat-list-item *ngFor="let claim of history.claims">
+                  <mat-icon matListItemIcon>report</mat-icon>
+                  <div matListItemTitle>{{ claim.type | titlecase }} - {{ formatDate(claim.date) }}</div>
+                  <div matListItemLine>{{ formatCurrency(claim.amountPaid) }} {{ claim.atFault ? '(At Fault)' : '' }}</div>
+                </mat-list-item>
+              </mat-list>
+            </div>
+
+            <div *ngIf="!history.claims || history.claims.length === 0" class="no-claims">
+              <mat-icon>check_circle</mat-icon>
+              <span>No claims reported</span>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <!-- Terms and Conditions -->
+      <div class="terms-section">
+        <mat-checkbox [formControl]="termsAccepted">
+          I certify that the information provided is accurate and complete. I understand that misrepresentation may result in policy cancellation.
+        </mat-checkbox>
+        <p class="terms-note">
+          <mat-icon>info</mat-icon>
+          By checking this box, you agree to our terms of service and privacy policy.
+        </p>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="button-row">
+        <button mat-button matStepperPrevious>
+          <mat-icon>arrow_back</mat-icon>
+          Back
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="!canGenerateQuote || isGeneratingQuote"
+          (click)="generateQuote()"
+          class="quote-button">
+          <mat-icon *ngIf="!isGeneratingQuote">calculate</mat-icon>
+          <mat-spinner *ngIf="isGeneratingQuote" diameter="20" class="button-spinner"></mat-spinner>
+          {{ isGeneratingQuote ? 'Generating Quote...' : 'Get Quote' }}
+        </button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

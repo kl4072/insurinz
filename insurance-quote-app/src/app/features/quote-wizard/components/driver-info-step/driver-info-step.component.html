@@ -1,0 +1,85 @@
+<form [formGroup]="driverForm">
+  <mat-card>
+    <mat-card-content>
+      <h2>Driver Information</h2>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>First Name</mat-label>
+          <input matInput formControlName="firstName">
+          <app-form-field-error [control]="driverForm.get('firstName')" fieldName="First Name"></app-form-field-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Last Name</mat-label>
+          <input matInput formControlName="lastName">
+          <app-form-field-error [control]="driverForm.get('lastName')" fieldName="Last Name"></app-form-field-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Date of Birth</mat-label>
+          <input matInput [matDatepicker]="dobPicker" formControlName="dateOfBirth">
+          <mat-datepicker-toggle matSuffix [for]="dobPicker"></mat-datepicker-toggle>
+          <mat-datepicker #dobPicker></mat-datepicker>
+          <app-form-field-error [control]="driverForm.get('dateOfBirth')" fieldName="Date of Birth"></app-form-field-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Gender</mat-label>
+          <mat-select formControlName="gender">
+            <mat-option value="male">Male</mat-option>
+            <mat-option value="female">Female</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+          <app-form-field-error [control]="driverForm.get('gender')" fieldName="Gender"></app-form-field-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>License Number</mat-label>
+          <input matInput formControlName="licenseNumber">
+          <app-form-field-error [control]="driverForm.get('licenseNumber')" fieldName="License Number"></app-form-field-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>License State</mat-label>
+          <mat-select formControlName="licenseState">
+            <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+          </mat-select>
+          <app-form-field-error [control]="driverForm.get('licenseState')" fieldName="License State"></app-form-field-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>License Issue Date</mat-label>
+          <input matInput [matDatepicker]="issuePicker" formControlName="licenseIssueDate">
+          <mat-datepicker-toggle matSuffix [for]="issuePicker"></mat-datepicker-toggle>
+          <mat-datepicker #issuePicker></mat-datepicker>
+          <app-form-field-error [control]="driverForm.get('licenseIssueDate')" fieldName="License Issue Date"></app-form-field-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Marital Status</mat-label>
+          <mat-select formControlName="maritalStatus">
+            <mat-option value="single">Single</mat-option>
+            <mat-option value="married">Married</mat-option>
+            <mat-option value="divorced">Divorced</mat-option>
+            <mat-option value="widowed">Widowed</mat-option>
+          </mat-select>
+          <app-form-field-error [control]="driverForm.get('maritalStatus')" fieldName="Marital Status"></app-form-field-error>
+        </mat-form-field>
+      </div>
+
+      <h3>Driving History</h3>
+      <mat-checkbox formGroupName="drivingHistory" formControlName="dui">Have you had a DUI in the past 5 years?</mat-checkbox>
+
+      <div class="button-row">
+        <button mat-raised-button matStepperNext color="primary" [disabled]="!driverForm.valid">Next</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

@@ -1,0 +1,157 @@
+.subtitle {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.section-description {
+  color: #757575;
+  font-size: 14px;
+  margin: 8px 0 16px 0;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 16px 0 24px 0;
+
+  .group-label {
+    font-weight: 500;
+    margin-bottom: 12px;
+    color: #333;
+  }
+
+  mat-radio-button {
+    margin-bottom: 12px;
+  }
+}
+
+.current-insurance-section {
+  margin: 24px 0;
+  padding: 20px;
+  background-color: #f5f9ff;
+  border-radius: 8px;
+  border-left: 4px solid #1976d2;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
+.years-field {
+  max-width: 300px;
+}
+
+.checkbox-section {
+  margin: 16px 0;
+}
+
+.help-text {
+  color: #666;
+  font-size: 13px;
+  margin: 4px 0 0 32px;
+  font-style: italic;
+}
+
+.lapse-section {
+  margin: 16px 0 24px 0;
+  padding: 16px;
+  background-color: #fff3e0;
+  border-radius: 8px;
+  border-left: 4px solid #ff9800;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.claims-array {
+  margin: 16px 0 24px 0;
+}
+
+.no-claims {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px;
+  background-color: #f1f8f4;
+  border-radius: 8px;
+  border: 2px dashed #4caf50;
+
+  mat-icon {
+    color: #4caf50;
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+  }
+
+  p {
+    color: #2e7d32;
+    margin: 0;
+  }
+}
+
+.claim-card {
+  margin-bottom: 16px;
+  border-left: 4px solid #f44336;
+
+  mat-card-header {
+    background-color: #fafafa;
+    padding: 12px 16px;
+    margin: -16px -16px 16px -16px;
+  }
+
+  mat-card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+.fault-checkbox {
+  margin-top: 8px;
+}
+
+.add-claim-button {
+  width: 100%;
+  margin: 16px 0 24px 0;
+  height: 48px;
+
+  mat-icon {
+    margin-right: 8px;
+  }
+}
+
+.button-row {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 {
+  margin-bottom: 8px;
+  color: #1976d2;
+}
+
+h3 {
+  margin: 24px 0 16px;
+  color: #333;
+  font-size: 18px;
+}
+
+mat-divider {
+  margin: 24px 0;
+}
+
+mat-checkbox {
+  ::ng-deep .mat-checkbox-label {
+    font-size: 15px;
+  }
+}

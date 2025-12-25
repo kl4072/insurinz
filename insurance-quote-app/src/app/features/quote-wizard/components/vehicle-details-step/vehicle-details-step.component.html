@@ -1,0 +1,117 @@
+<form [formGroup]="vehicleForm">
+  <mat-card>
+    <mat-card-content>
+      <h2>Vehicle Details</h2>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>VIN</mat-label>
+          <input matInput formControlName="vin" maxlength="17">
+          <app-form-field-error [control]="vehicleForm.get('vin')" fieldName="VIN"></app-form-field-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Year</mat-label>
+          <input matInput type="number" formControlName="year">
+          <app-form-field-error [control]="vehicleForm.get('year')" fieldName="Year"></app-form-field-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Make</mat-label>
+          <input matInput formControlName="make">
+          <app-form-field-error [control]="vehicleForm.get('make')" fieldName="Make"></app-form-field-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Model</mat-label>
+          <input matInput formControlName="model">
+          <app-form-field-error [control]="vehicleForm.get('model')" fieldName="Model"></app-form-field-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Body Type</mat-label>
+          <mat-select formControlName="bodyType">
+            <mat-option value="sedan">Sedan</mat-option>
+            <mat-option value="suv">SUV</mat-option>
+            <mat-option value="truck">Truck</mat-option>
+            <mat-option value="coupe">Coupe</mat-option>
+            <mat-option value="van">Van</mat-option>
+            <mat-option value="other">Other</mat-option>
+          </mat-select>
+          <app-form-field-error [control]="vehicleForm.get('bodyType')" fieldName="Body Type"></app-form-field-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Primary Use</mat-label>
+          <mat-select formControlName="primaryUse">
+            <mat-option value="commute">Commute</mat-option>
+            <mat-option value="business">Business</mat-option>
+            <mat-option value="pleasure">Pleasure</mat-option>
+            <mat-option value="farm">Farm</mat-option>
+          </mat-select>
+          <app-form-field-error [control]="vehicleForm.get('primaryUse')" fieldName="Primary Use"></app-form-field-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Annual Mileage</mat-label>
+          <input matInput type="number" formControlName="annualMileage">
+          <app-form-field-error [control]="vehicleForm.get('annualMileage')" fieldName="Annual Mileage"></app-form-field-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Ownership</mat-label>
+          <mat-select formControlName="ownership">
+            <mat-option value="owned">Owned</mat-option>
+            <mat-option value="leased">Leased</mat-option>
+            <mat-option value="financed">Financed</mat-option>
+          </mat-select>
+          <app-form-field-error [control]="vehicleForm.get('ownership')" fieldName="Ownership"></app-form-field-error>
+        </mat-form-field>
+      </div>
+
+      <h3>Garaging Address</h3>
+      <div formGroupName="garagingAddress">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Street Address</mat-label>
+          <input matInput formControlName="street">
+          <app-form-field-error [control]="vehicleForm.get('garagingAddress.street')" fieldName="Street"></app-form-field-error>
+        </mat-form-field>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city">
+            <app-form-field-error [control]="vehicleForm.get('garagingAddress.city')" fieldName="City"></app-form-field-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>State</mat-label>
+            <mat-select formControlName="state">
+              <mat-option *ngFor="let state of states" [value]="state">{{state}}</mat-option>
+            </mat-select>
+            <app-form-field-error [control]="vehicleForm.get('garagingAddress.state')" fieldName="State"></app-form-field-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>ZIP Code</mat-label>
+            <input matInput formControlName="zipCode">
+            <app-form-field-error [control]="vehicleForm.get('garagingAddress.zipCode')" fieldName="ZIP Code"></app-form-field-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <mat-checkbox formControlName="antiTheftDevices">Vehicle has anti-theft devices</mat-checkbox>
+
+      <div class="button-row">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext color="primary" [disabled]="!vehicleForm.valid">Next</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

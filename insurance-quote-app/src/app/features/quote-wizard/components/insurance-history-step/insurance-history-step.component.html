@@ -1,0 +1,142 @@
+<form [formGroup]="historyForm">
+  <mat-card>
+    <mat-card-content>
+      <h2>Insurance History</h2>
+      <p class="subtitle">Tell us about your current and past insurance coverage</p>
+
+      <mat-divider></mat-divider>
+
+      <h3>Current Insurance Status</h3>
+
+      <mat-radio-group formControlName="currentlyInsured" class="radio-group">
+        <label class="group-label">Are you currently insured?</label>
+        <mat-radio-button [value]="true">Yes</mat-radio-button>
+        <mat-radio-button [value]="false">No</mat-radio-button>
+      </mat-radio-group>
+
+      <div *ngIf="historyForm.get('currentlyInsured')?.value" class="current-insurance-section">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Current Insurance Company</mat-label>
+            <input matInput formControlName="currentInsurer" placeholder="e.g., State Farm, Geico, Progressive">
+            <mat-icon matSuffix matTooltip="Name of your current insurance provider">info</mat-icon>
+            <app-form-field-error [control]="historyForm.get('currentInsurer')" fieldName="Current Insurer"></app-form-field-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Policy Expiration Date</mat-label>
+            <input matInput [matDatepicker]="expirationPicker" formControlName="policyExpirationDate">
+            <mat-datepicker-toggle matSuffix [for]="expirationPicker"></mat-datepicker-toggle>
+            <mat-datepicker #expirationPicker></mat-datepicker>
+            <app-form-field-error [control]="historyForm.get('policyExpirationDate')" fieldName="Expiration Date"></app-form-field-error>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field appearance="outline" class="years-field">
+          <mat-label>Years with Current Insurer</mat-label>
+          <input matInput type="number" formControlName="yearsWithCurrentInsurer" min="0" max="50">
+          <mat-hint>How long have you been with this company?</mat-hint>
+        </mat-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <h3>Coverage History</h3>
+
+      <div class="checkbox-section">
+        <mat-checkbox formControlName="continuousCoverage">
+          I have had continuous insurance coverage (no gaps)
+        </mat-checkbox>
+        <p class="help-text">Continuous coverage often qualifies you for discounts</p>
+      </div>
+
+      <div class="checkbox-section">
+        <mat-checkbox formControlName="lapseInCoverage">
+          I have had a lapse in coverage in the past 3 years
+        </mat-checkbox>
+      </div>
+
+      <div *ngIf="historyForm.get('lapseInCoverage')?.value" class="lapse-section">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Reason for Coverage Lapse</mat-label>
+          <textarea matInput formControlName="lapseReason" rows="3" placeholder="Please explain the reason for the gap in coverage"></textarea>
+          <mat-hint>Be as specific as possible</mat-hint>
+          <app-form-field-error [control]="historyForm.get('lapseReason')" fieldName="Lapse Reason"></app-form-field-error>
+        </mat-form-field>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <h3>Claims History</h3>
+      <p class="section-description">Add any insurance claims you've filed in the past 5 years</p>
+
+      <div formArrayName="claims" class="claims-array">
+        <div *ngIf="claims.length === 0" class="no-claims">
+          <mat-icon>check_circle</mat-icon>
+          <p>No claims added yet. Click "Add Claim" if you have any claims to report.</p>
+        </div>
+
+        <mat-card *ngFor="let claim of claims.controls; let i = index" [formGroupName]="i" class="claim-card">
+          <mat-card-header>
+            <mat-card-title>
+              Claim #{{ i + 1 }}
+              <button mat-icon-button color="warn" (click)="removeClaim(i)" type="button" matTooltip="Remove this claim">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="form-row">
+              <mat-form-field appearance="outline">
+                <mat-label>Claim Date</mat-label>
+                <input matInput [matDatepicker]="claimPicker" formControlName="date">
+                <mat-datepicker-toggle matSuffix [for]="claimPicker"></mat-datepicker-toggle>
+                <mat-datepicker #claimPicker></mat-datepicker>
+                <app-form-field-error [control]="claim.get('date')" fieldName="Claim Date"></app-form-field-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Claim Type</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option value="collision">Collision</mat-option>
+                  <mat-option value="comprehensive">Comprehensive</mat-option>
+                  <mat-option value="liability">Liability</mat-option>
+                  <mat-option value="other">Other</mat-option>
+                </mat-select>
+                <app-form-field-error [control]="claim.get('type')" fieldName="Claim Type"></app-form-field-error>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Amount Paid</mat-label>
+                <input matInput type="number" formControlName="amountPaid" min="0">
+                <span matPrefix>$&nbsp;</span>
+                <app-form-field-error [control]="claim.get('amountPaid')" fieldName="Amount Paid"></app-form-field-error>
+              </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Claim Description</mat-label>
+              <textarea matInput formControlName="description" rows="2" placeholder="Brief description of what happened"></textarea>
+              <mat-hint>Minimum 10 characters</mat-hint>
+              <app-form-field-error [control]="claim.get('description')" fieldName="Description"></app-form-field-error>
+            </mat-form-field>
+
+            <mat-checkbox formControlName="atFault" class="fault-checkbox">
+              I was at fault for this claim
+            </mat-checkbox>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <button mat-stroked-button color="primary" (click)="addClaim()" type="button" class="add-claim-button">
+        <mat-icon>add</mat-icon>
+        Add Claim
+      </button>
+
+      <div class="button-row">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext color="primary" [disabled]="!historyForm.valid">Next</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

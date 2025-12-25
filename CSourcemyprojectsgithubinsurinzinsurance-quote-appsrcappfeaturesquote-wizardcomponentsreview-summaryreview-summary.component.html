@@ -1,0 +1,57 @@
+<mat-card>
+  <mat-card-content>
+    <h2>Review Your Information</h2>
+
+    <mat-card class="summary-section">
+      <mat-card-title>Driver Information</mat-card-title>
+      <mat-card-content>
+        <p><strong>Name:</strong> {{driver?.firstName}} {{driver?.lastName}}</p>
+        <p><strong>Age:</strong> {{driver?.age}}</p>
+        <p><strong>License:</strong> {{driver?.licenseNumber}} ({{driver?.licenseState}})</p>
+        <p><strong>Gender:</strong> {{driver?.gender}}</p>
+        <p><strong>Marital Status:</strong> {{driver?.maritalStatus}}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-section">
+      <mat-card-title>Vehicle Details</mat-card-title>
+      <mat-card-content>
+        <p><strong>Vehicle:</strong> {{vehicle?.year}} {{vehicle?.make}} {{vehicle?.model}}</p>
+        <p><strong>VIN:</strong> {{vehicle?.vin}}</p>
+        <p><strong>Type:</strong> {{vehicle?.bodyType}}</p>
+        <p><strong>Annual Mileage:</strong> {{vehicle?.annualMileage}}</p>
+        <p><strong>Ownership:</strong> {{vehicle?.ownership}}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-section">
+      <mat-card-title>Coverage Preferences</mat-card-title>
+      <mat-card-content>
+        <p><strong>Liability:</strong> {{coverage?.liability?.bodilyInjuryPerPerson | currency:'USD':'symbol':'1.0-0'}}/{{coverage?.liability?.bodilyInjuryPerAccident | currency:'USD':'symbol':'1.0-0'}}/{{coverage?.liability?.propertyDamage | currency:'USD':'symbol':'1.0-0'}}</p>
+        <p *ngIf="coverage?.collision?.enabled"><strong>Collision:</strong> ${{coverage?.collision?.deductible}} deductible</p>
+        <p *ngIf="coverage?.comprehensive?.enabled"><strong>Comprehensive:</strong> ${{coverage?.comprehensive?.deductible}} deductible</p>
+        <p *ngIf="coverage?.personalInjuryProtection">Personal Injury Protection: Yes</p>
+        <p *ngIf="coverage?.uninsuredMotoristCoverage">Uninsured Motorist: Yes</p>
+        <p *ngIf="coverage?.roadsideAssistance">Roadside Assistance: Yes</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-section">
+      <mat-card-title>Insurance History</mat-card-title>
+      <mat-card-content>
+        <p><strong>Currently Insured:</strong> {{history?.currentlyInsured ? 'Yes' : 'No'}}</p>
+        <p *ngIf="history?.currentlyInsured"><strong>Current Insurer:</strong> {{history?.currentInsurer}}</p>
+        <p><strong>Continuous Coverage:</strong> {{history?.continuousCoverage ? 'Yes' : 'No'}}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <div class="button-row">
+      <button mat-button matStepperPrevious>Back</button>
+      <button mat-raised-button color="primary" (click)="generateQuote()" [disabled]="loading">
+        <mat-spinner *ngIf="loading" diameter="20" class="inline-spinner"></mat-spinner>
+        <span *ngIf="!loading">Get Quote</span>
+        <span *ngIf="loading">Calculating...</span>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

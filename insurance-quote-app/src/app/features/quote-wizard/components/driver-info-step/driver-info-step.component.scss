@@ -1,0 +1,23 @@
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
+.button-row {
+  margin-top: 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+h2 {
+  margin-bottom: 24px;
+}
+
+h3 {
+  margin: 24px 0 16px;
+}

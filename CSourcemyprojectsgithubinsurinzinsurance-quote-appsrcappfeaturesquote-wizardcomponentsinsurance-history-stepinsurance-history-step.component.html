@@ -1,0 +1,41 @@
+<form [formGroup]="historyForm">
+  <mat-card>
+    <mat-card-content>
+      <h2>Insurance History</h2>
+
+      <mat-radio-group formControlName="currentlyInsured">
+        <label>Are you currently insured?</label>
+        <mat-radio-button [value]="true">Yes</mat-radio-button>
+        <mat-radio-button [value]="false">No</mat-radio-button>
+      </mat-radio-group>
+
+      <div *ngIf="historyForm.get('currentlyInsured')?.value" class="current-insurance">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Current Insurer</mat-label>
+          <input matInput formControlName="currentInsurer">
+          <app-form-field-error [control]="historyForm.get('currentInsurer')" fieldName="Current Insurer"></app-form-field-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Years with Current Insurer</mat-label>
+          <input matInput type="number" formControlName="yearsWithCurrentInsurer">
+        </mat-form-field>
+      </div>
+
+      <mat-checkbox formControlName="continuousCoverage">I have had continuous coverage (no gaps)</mat-checkbox>
+      <mat-checkbox formControlName="lapseInCoverage">I have had a lapse in coverage</mat-checkbox>
+
+      <div *ngIf="historyForm.get('lapseInCoverage')?.value">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Reason for Lapse</mat-label>
+          <textarea matInput formControlName="lapseReason" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+
+      <div class="button-row">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext color="primary" [disabled]="!historyForm.valid">Next</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

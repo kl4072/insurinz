@@ -1,0 +1,28 @@
+.summary-section {
+  margin-bottom: 16px;
+}
+
+.button-row {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 {
+  margin-bottom: 24px;
+}
+
+.inline-spinner {
+  display: inline-block;
+  margin-right: 8px;
+}
+
+mat-card-title {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+p {
+  margin: 8px 0;
+}

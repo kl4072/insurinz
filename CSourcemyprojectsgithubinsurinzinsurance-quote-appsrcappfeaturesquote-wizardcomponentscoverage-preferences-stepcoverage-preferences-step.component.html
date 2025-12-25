@@ -1,0 +1,77 @@
+<form [formGroup]="coverageForm">
+  <mat-card>
+    <mat-card-content>
+      <h2>Coverage Preferences</h2>
+
+      <h3>Liability Coverage (Required)</h3>
+      <div formGroupName="liability" class="form-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Bodily Injury Per Person</mat-label>
+          <mat-select formControlName="bodilyInjuryPerPerson">
+            <mat-option [value]="25000">$25,000</mat-option>
+            <mat-option [value]="50000">$50,000</mat-option>
+            <mat-option [value]="100000">$100,000</mat-option>
+            <mat-option [value]="250000">$250,000</mat-option>
+            <mat-option [value]="500000">$500,000</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Bodily Injury Per Accident</mat-label>
+          <mat-select formControlName="bodilyInjuryPerAccident">
+            <mat-option [value]="50000">$50,000</mat-option>
+            <mat-option [value]="100000">$100,000</mat-option>
+            <mat-option [value]="300000">$300,000</mat-option>
+            <mat-option [value]="500000">$500,000</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Property Damage</mat-label>
+          <mat-select formControlName="propertyDamage">
+            <mat-option [value]="25000">$25,000</mat-option>
+            <mat-option [value]="50000">$50,000</mat-option>
+            <mat-option [value]="100000">$100,000</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <h3>Optional Coverage</h3>
+      <div formGroupName="collision">
+        <mat-checkbox formControlName="enabled">Collision Coverage</mat-checkbox>
+        <mat-form-field appearance="outline" *ngIf="coverageForm.get('collision.enabled')?.value" class="deductible-field">
+          <mat-label>Deductible</mat-label>
+          <mat-select formControlName="deductible">
+            <mat-option [value]="250">$250</mat-option>
+            <mat-option [value]="500">$500</mat-option>
+            <mat-option [value]="1000">$1,000</mat-option>
+            <mat-option [value]="2000">$2,000</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div formGroupName="comprehensive">
+        <mat-checkbox formControlName="enabled">Comprehensive Coverage</mat-checkbox>
+        <mat-form-field appearance="outline" *ngIf="coverageForm.get('comprehensive.enabled')?.value" class="deductible-field">
+          <mat-label>Deductible</mat-label>
+          <mat-select formControlName="deductible">
+            <mat-option [value]="250">$250</mat-option>
+            <mat-option [value]="500">$500</mat-option>
+            <mat-option [value]="1000">$1,000</mat-option>
+            <mat-option [value]="2000">$2,000</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <mat-checkbox formControlName="personalInjuryProtection">Personal Injury Protection</mat-checkbox>
+      <mat-checkbox formControlName="uninsuredMotoristCoverage">Uninsured Motorist Coverage</mat-checkbox>
+      <mat-checkbox formControlName="rentalReimbursement">Rental Reimbursement</mat-checkbox>
+      <mat-checkbox formControlName="roadsideAssistance">Roadside Assistance</mat-checkbox>
+
+      <div class="button-row">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-raised-button matStepperNext color="primary" [disabled]="!coverageForm.valid">Next</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</form>

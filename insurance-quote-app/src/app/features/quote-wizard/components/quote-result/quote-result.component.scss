@@ -1,0 +1,72 @@
+.quote-card {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.quote-id {
+  margin-bottom: 24px;
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.premium-card, .breakdown-card, .discounts-card {
+  margin-bottom: 16px;
+}
+
+.premium-option {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+
+  &.highlighted {
+    background: #e3f2fd;
+    font-size: 20px;
+    font-weight: 500;
+
+    .amount {
+      color: #1976d2;
+      font-weight: 700;
+    }
+  }
+
+  .label {
+    font-weight: 500;
+  }
+}
+
+.coverage-item, .discount-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.discount-amount {
+  color: #4caf50;
+  font-weight: 500;
+}
+
+.total-discount {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  margin-top: 12px;
+  font-size: 18px;
+
+  strong {
+    color: #4caf50;
+  }
+}
+
+.actions {
+  margin-top: 24px;
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #1976d2;
+}

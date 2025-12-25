@@ -1,0 +1,98 @@
+.subtitle {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.section-description {
+  color: #757575;
+  font-size: 14px;
+  margin: 8px 0 16px 0;
+}
+
+.coverage-section {
+  margin: 16px 0 24px 0;
+}
+
+.form-row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+
+  mat-form-field {
+    flex: 1;
+  }
+}
+
+.coverage-option {
+  margin-bottom: 24px;
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  border-left: 4px solid #3f51b5;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.coverage-description {
+  color: #666;
+  font-size: 13px;
+  margin: 8px 0 16px 28px;
+}
+
+.deductible-field {
+  margin-left: 28px;
+  max-width: 300px;
+}
+
+.info-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+  color: #3f51b5;
+  cursor: help;
+}
+
+.additional-coverage {
+  margin-top: 16px;
+}
+
+mat-checkbox {
+  margin-bottom: 0;
+
+  ::ng-deep .matlabel {
+    font-weight: 500;
+  }
+}
+
+mat-divider {
+  margin: 24px 0;
+}
+
+.button-row {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 {
+  margin-bottom: 8px;
+  color: #1976d2;
+}
+
+h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 24px 0 8px;
+  color: #333;
+  font-size: 18px;
+}
+
+mat-hint {
+  font-size: 12px;
+}

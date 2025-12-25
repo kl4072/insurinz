@@ -1,0 +1,38 @@
+.full-width {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.current-insurance {
+  margin: 24px 0;
+}
+
+mat-checkbox {
+  display: block;
+  margin-bottom: 12px;
+}
+
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+
+  label {
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  mat-radio-button {
+    margin-bottom: 8px;
+  }
+}
+
+.button-row {
+  margin-top: 24px;
+  display: flex;
+  justify-content: space-between;
+}
+
+h2 {
+  margin-bottom: 24px;
+}

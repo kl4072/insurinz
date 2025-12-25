@@ -1,0 +1,33 @@
+<div class="wizard-container">
+  <mat-toolbar color="primary">
+    <span>Auto Insurance Quote</span>
+  </mat-toolbar>
+
+  <div class="content-wrapper" *ngIf="!showQuoteResult">
+    <mat-horizontal-stepper [linear]="true" #stepper>
+      <mat-step label="Driver Information">
+        <app-driver-info-step></app-driver-info-step>
+      </mat-step>
+
+      <mat-step label="Vehicle Details">
+        <app-vehicle-details-step></app-vehicle-details-step>
+      </mat-step>
+
+      <mat-step label="Coverage Preferences">
+        <app-coverage-preferences-step></app-coverage-preferences-step>
+      </mat-step>
+
+      <mat-step label="Insurance History">
+        <app-insurance-history-step></app-insurance-history-step>
+      </mat-step>
+
+      <mat-step label="Review & Submit">
+        <app-review-summary (quoteGenerated)="onQuoteGenerated($any($event))" (editStep)="onEditStep($event)"></app-review-summary>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+
+  <div class="content-wrapper" *ngIf="showQuoteResult && quote">
+    <app-quote-result [quote]="quote" (newQuote)="onNewQuote()"></app-quote-result>
+  </div>
+</div>

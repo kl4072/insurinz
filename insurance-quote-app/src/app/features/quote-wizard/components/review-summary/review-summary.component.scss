@@ -1,0 +1,258 @@
+.review-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+h2 {
+  margin-bottom: 8px;
+  color: #1976d2;
+}
+
+.subtitle {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+mat-divider {
+  margin: 32px 0;
+}
+
+.summary-section {
+  margin: 24px 0;
+
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0;
+      color: #333;
+      font-size: 20px;
+      font-weight: 500;
+
+      mat-icon {
+        color: #1976d2;
+      }
+    }
+
+    button {
+      mat-icon {
+        margin-right: 4px;
+      }
+    }
+  }
+
+  .info-card {
+    background-color: #f9f9f9;
+    border-left: 4px solid #1976d2;
+
+    mat-card-content {
+      padding: 20px;
+    }
+  }
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    .label {
+      font-size: 13px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .value {
+      font-size: 15px;
+      color: #333;
+    }
+  }
+}
+
+.driving-history,
+.garaging-address,
+.safety-features,
+.coverage-section,
+.claims-summary {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #e0e0e0;
+
+  h4 {
+    margin: 0 0 12px 0;
+    color: #555;
+    font-size: 16px;
+    font-weight: 500;
+  }
+}
+
+.garaging-address {
+  p {
+    margin: 0;
+    color: #333;
+    line-height: 1.5;
+  }
+}
+
+.safety-features {
+  mat-chip-set {
+    margin-top: 8px;
+  }
+
+  mat-chip {
+    background-color: #e3f2fd;
+    color: #1976d2;
+    font-size: 13px;
+  }
+}
+
+.coverage-section {
+  &:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  mat-chip-set {
+    margin-top: 12px;
+  }
+
+  mat-chip {
+    background-color: #f1f8f4;
+    color: #2e7d32;
+    border: 1px solid #4caf50;
+  }
+}
+
+.claims-summary {
+  mat-list {
+    padding: 0;
+  }
+
+  mat-list-item {
+    height: auto;
+    min-height: 56px;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    mat-icon {
+      color: #f44336;
+    }
+  }
+}
+
+.no-claims {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background-color: #f1f8f4;
+  border-radius: 8px;
+  border: 2px dashed #4caf50;
+  margin-top: 16px;
+
+  mat-icon {
+    color: #4caf50;
+    font-size: 28px;
+    width: 28px;
+    height: 28px;
+  }
+
+  span {
+    color: #2e7d32;
+    font-weight: 500;
+  }
+}
+
+.terms-section {
+  margin: 32px 0 24px 0;
+  padding: 24px;
+  background-color: #fff9e6;
+  border-radius: 8px;
+  border: 2px solid #ffc107;
+
+  mat-checkbox {
+    ::ng-deep .mat-mdc-checkbox-label {
+      font-size: 15px;
+      line-height: 1.6;
+      color: #333;
+    }
+  }
+
+  .terms-note {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 0 32px;
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+
+    mat-icon {
+      font-size: 18px;
+      width: 18px;
+      height: 18px;
+      color: #ff9800;
+    }
+  }
+}
+
+.button-row {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .quote-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    padding: 12px 32px;
+    height: 48px;
+
+    .button-spinner {
+      ::ng-deep circle {
+        stroke: white;
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-section .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .button-row {
+    flex-direction: column;
+    gap: 16px;
+
+    button {
+      width: 100%;
+    }
+  }
+}
