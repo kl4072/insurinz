@@ -3,8 +3,8 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'quote',
-    pathMatch: 'full'
+    loadComponent: () => import('./features/landing/landing-page.component')
+      .then(m => m.LandingPageComponent)
   },
   {
     path: 'quote',
