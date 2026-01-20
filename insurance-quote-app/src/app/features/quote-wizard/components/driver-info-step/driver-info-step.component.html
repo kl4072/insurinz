@@ -75,7 +75,9 @@
       </div>
 
       <h3>Driving History</h3>
-      <mat-checkbox formGroupName="drivingHistory" formControlName="dui">Have you had a DUI in the past 5 years?</mat-checkbox>
+      <div formGroupName="drivingHistory">
+        <mat-checkbox formControlName="dui">Have you had a DUI in the past 5 years?</mat-checkbox>
+      </div>
 
       <div class="button-row">
         <button mat-raised-button matStepperNext color="primary" [disabled]="!driverForm.valid">Next</button>
