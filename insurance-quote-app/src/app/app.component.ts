@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { ChatWidgetComponent } from './features/chat/components/chat-widget/chat-widget.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, ChatWidgetComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
