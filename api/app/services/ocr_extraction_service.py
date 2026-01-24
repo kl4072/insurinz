@@ -1,4 +1,5 @@
 import io
+import os
 import re
 from datetime import datetime
 from typing import List, Literal, Optional
@@ -16,16 +17,25 @@ class OCRExtractionService:
     Extracts text from images and PDFs, then parses insurance-related fields.
     """
 
-    def __init__(self, tesseract_cmd: Optional[str] = None):
+    def __init__(
+        self,
+        tesseract_cmd: Optional[str] = None,
+        poppler_path: Optional[str] = None
+    ):
         """
         Initialize the OCR service.
 
         Args:
             tesseract_cmd: Path to tesseract executable.
-                           If None, uses system default.
+                           If None, checks TESSERACT_CMD env var, then system default.
+            poppler_path: Path to poppler bin directory (required for PDF on Windows).
+                          If None, checks POPPLER_PATH env var.
         """
+        tesseract_cmd = tesseract_cmd or os.getenv("TESSERACT_CMD")
         if tesseract_cmd:
             pytesseract.pytesseract.tesseract_cmd = tesseract_cmd
+
+        self.poppler_path = poppler_path or os.getenv("POPPLER_PATH")
 
     async def extract(
         self,
@@ -75,13 +85,14 @@ class OCRExtractionService:
     def _extract_text_from_pdf(self, content: bytes) -> str:
         """Extract text from a PDF by converting pages to images."""
         try:
-            images = convert_from_bytes(content)
+            images = convert_from_bytes(content, poppler_path=self.poppler_path)
             text_parts = []
             for image in images:
                 text = pytesseract.image_to_string(image)
                 text_parts.append(text)
             return "\n".join(text_parts)
-        except Exception:
+        except Exception as e:
+            print(f"PDF extraction error: {type(e).__name__}: {e}")
             return ""
 
     def _detect_document_type(
